@@ -4,31 +4,44 @@
             <a href="{{url('/')}}">Workopia</a>
         </h1>
         <nav class="hidden md:flex items-center space-x-4">
-            <a href="{{url('/jobs')}}"
-               class="text-white hover:underline py-2"
-            >All Jobs</a
+            <x-nav-link url="/"
+                        title="Workopia Homepage"
+                        :active="request()->is('/')"
             >
-            <a href="{{url('/jobs/saved')}}"
-               class="text-white hover:underline py-2"
+                Home
+            </x-nav-link>
+            <x-nav-link url="/jobs"
+                        title="View all jobs currently available on Workopia"
+                        :active="request()->is('jobs')"
+            >
+                All jobs
+            </x-nav-link>
+            <x-nav-link url="/jobs/saved"
+                        title="Your saved/bookmarked jobs"
+                        :active="request()->is('jobs/saved')"
             >
                 Saved Jobs
-            </a>
-            <a href="{{url('/login')}}"
-               class="text-white hover:underline py-2"
-            >Login
-            </a>
-            <a href="{{url('/register')}}"
-               class="text-white
-                      hover:underline
-                      py-2"
+            </x-nav-link>
+            <x-nav-link url="/login"
+                        title="Login to your Workopia account"
+                        :active="request()->is('login')"
+                        icon="user"
+            >
+                Login
+            </x-nav-link>
+            <x-nav-link url="/register"
+                        title="Create an account on Workopia"
+                        :active="request()->is('register')"
             >
                 Register
-            </a>
-            <a href="{{url('/dashboard')}}"
-               class="text-white hover:underline py-2"
+            </x-nav-link>
+            <x-nav-link url="/"
+                        title="Go to your Workopia dashboard"
+                        :active="request()->is('/dashboard')"
+                        icon="gauge"
             >
-                <i class="fa fa-gauge mr-1"></i> Dashboard
-            </a>
+                Dashboard
+            </x-nav-link>
             <a href="{{url('/jobs/create')}}"
                class="bg-yellow-500
                hover:bg-yellow-600
