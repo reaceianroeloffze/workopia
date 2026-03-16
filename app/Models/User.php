@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -44,5 +46,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Find a user's job listings.
+     *
+     * A user relation to many job listings.
+     *
+     * @return HasMany <p>
+     *     The user's job listings.
+     * </p>
+     */
+    public function jobListings(): HasMany
+    {
+        return $this->hasMany(JobListing::class);
     }
 }
