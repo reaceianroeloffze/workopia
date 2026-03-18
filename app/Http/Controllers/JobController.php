@@ -85,9 +85,9 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): string
+    public function edit(Job $job): View
     {
-        return 'Edit';
+        return view('jobs.edit')->with('job', $job);
     }
 
     /**
