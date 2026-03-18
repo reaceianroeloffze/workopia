@@ -26,7 +26,9 @@
             'resources/js/app.js'
         ]
     )
-    <script src="{{asset('/js/script.js')}}" defer></script>
+    {{-- Alpine.js --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
+    {{-- <script src="{{asset('/js/script.js')}}" defer></script> --}}
 </head>
 <body class="bg-gray-200">
 {{-- Header --}}
@@ -38,6 +40,16 @@
 @endif
 
 <main class="container mx-auto p-4 mt-4">
+    {{-- Display Alert Message --}}
+    @if (session('success'))
+        <x-alert type="success"
+                 :message="session('success')"
+        />
+    @elseif (session('error'))
+        <x-alert type="error"
+                 message="{{session('error')}}"
+        />
+    @endif
     {{$slot}}
 </main>
 </body>
