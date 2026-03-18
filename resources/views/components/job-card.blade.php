@@ -1,24 +1,44 @@
 @props(['job'])
 
-<div class="rounded-lg shadow-md bg-white p-4">
-    <div class="flex items-center space-between gap-4">
-        <img src="/images/{{$job->company_logo}}"
-             alt="{{$job->company_name}}"
-             class="w-14"
-        >
+<div class="rounded-lg
+            shadow-md
+            bg-white
+            p-4"
+>
+    <div class="flex
+                items-center
+                space-between gap-4"
+    >
+        @if ($job->company_logo)
+            <img src="/images/{{$job->company_logo}}"
+                 alt="{{$job->company_name}}"
+                 class="w-14"
+            >
+        @endif
         <div>
-            <h2 class="text-2xl font-semibold">
+            <h2 class="text-2xl
+                       font-semibold"
+            >
                 {{$job->title}}
             </h2>
-            <p class="text-md text-gray-500">
+            <p class="text-md
+                      text-gray-500"
+            >
                 {{$job->job_type}}
             </p>
         </div>
     </div>
-    <p class="text-gray-700 text-lg mt-2">
+    <p class="text-gray-700
+              text-lg
+              mt-2"
+    >
         {{Str::limit($job->description)}}
     </p>
-    <ul class="my-4 bg-gray-100 p-4 rounded">
+    <ul class="my-4
+               bg-gray-100
+               p-4
+               rounded"
+    >
         <li class="mb-2">
             <strong>Salary:</strong>
             ${{number_format($job->salary)}}
@@ -28,28 +48,34 @@
             {{$job->city}}, {{$job->state}}
             @if (!$job->is_remote)
                 <span class="text-xs
-                        bg-red-500
-                         text-white
-                         rounded-full
-                         px-2
-                         py-1
-                         ml-2"
-                >On-Site</span>
+                             bg-red-500
+                             text-white
+                             rounded-full
+                             px-2
+                             py-1
+                             ml-2"
+                >
+                    On-Site
+                </span>
             @else
                 <span class="text-xs
-                        bg-green-500
-                         text-white
-                         rounded-full
-                         px-2
-                         py-1
-                         ml-2"
-                >Remote</span>
+                             bg-green-500
+                             text-white
+                             rounded-full
+                             px-2
+                             py-1
+                             ml-2"
+                >
+                    Remote
+                </span>
             @endif
         </li>
-        <li class="mb-2">
-            <strong>Tags:</strong>
-            {{ucwords(str_replace(',', ', ', $job->tags))}}
-        </li>
+        @if ($job->tags)
+            <li class="mb-2">
+                <strong>Tags:</strong>
+                {{ucwords(str_replace(',', ', ', $job->tags))}}
+            </li>
+        @endif
     </ul>
     <a href="{{route('jobs.show', $job->id)}}"
        class="block
