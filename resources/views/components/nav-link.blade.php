@@ -8,7 +8,7 @@
 )
 
 @if ($mobile)
-    <a {{$attributes}}
+    <a {{$attributes->except('mobile')}}
        href="{{$url}}"
        class="block px-4 py-2 hover:bg-blue-700
        {{$active ? 'text-yellow-500 font-bold' : ''}}"
@@ -19,7 +19,7 @@
         {{$slot}}
     </a>
 @else
-    <a {{$attributes}}
+    <a {{$attributes->except('mobile')}}
        href="{{$url}}"
        class="text-white hover:underline py-2
         {{$active ? 'text-yellow-500 font-bold' : ''}}"
