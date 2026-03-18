@@ -13,7 +13,7 @@ class File extends Component
      */
     public function __construct()
     {
-        //
+        //.
     }
 
     /**
