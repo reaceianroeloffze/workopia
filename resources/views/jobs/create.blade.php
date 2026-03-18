@@ -16,7 +16,10 @@
               enctype="multipart/form-data"
         >
             @csrf
-            <h2 class="text-2xl font-bold mb-6 text-center text-gray-500"
+            <h2 class="text-2xl
+                       font-bold
+                       mb-6 text-center
+                       text-gray-500"
             >
                 Job Info
             </h2>
