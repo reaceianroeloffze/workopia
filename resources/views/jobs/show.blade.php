@@ -25,7 +25,7 @@
                                 space-x-3
                                 ml-4"
                     >
-                        <a href="/edit"
+                        <a href="{{route('jobs.edit', $job->id)}}"
                            class="px-4
                                   py-2
                                   bg-blue-500
