@@ -36,7 +36,12 @@
                             Edit
                         </a>
                         <!-- Delete Form -->
-                        <form method="POST">
+                        <form method="POST"
+                              action="{{route('jobs.destroy', $job->id)}}"
+                              onsubmit="return confirm('Are you sure you want to delete job listing {{$job->title}}?');"
+                        >
+                            @csrf
+                            @method('DELETE')
                             <button type="submit"
                                     class="px-4
                                            py-2
