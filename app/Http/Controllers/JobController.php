@@ -11,8 +11,14 @@ use Illuminate\Support\Facades\Storage;
 class JobController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+     * Display a listing of the job resource.
+     *
+     * @route GET /jobs
+     *
+     * @return View <p>
+     *     The view for displaying the job listings.
+     * </p>
+     * */
     public function index(): View
     {
         $jobs = Job::all();
@@ -23,15 +29,23 @@ class JobController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
+     * Show the form for creating a new job resource.
+     *
+     * @route GET /jobs/create
+     *
+     * @return View <p>
+     *     The view for creating a new job listing.
+     * </p>
+     * */
     public function create(): View
     {
         return view('jobs.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created job resource in storage.
+     *
+     * @route POST /jobs
      *
      * @param Request $request <p>
      *     The request object containing the validated data.
@@ -64,9 +78,6 @@ class JobController extends Controller
             'company_website' => 'nullable|url',
         ]);
 
-        // Hardcoded user ID for now
-        $validatedData['user_id'] = 1;
-
         // Check for image
         if ($request->hasFile('company_logo')) {
             // Store the image file and get the path
@@ -83,7 +94,9 @@ class JobController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified job resource.
+     *
+     * @route GET /jobs/{id}
      *
      * @param Job $job <p>
      *     The job listing to be displayed.
@@ -101,6 +114,8 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @route GET /jobs/{id}/edit
+     *
      * @param Job $job <p>
      *     The job listing to be edited.
      * </p>
@@ -115,7 +130,9 @@ class JobController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified job resource in storage.
+     *
+     * @route PUT /jobs/{id}
      *
      * @param Request $request <p>
      *     The request object containing the validated data.
@@ -170,7 +187,9 @@ class JobController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified job resource from storage.
+     *
+     * @route DELETE /jobs/{id}
      *
      * @param Job $job <p>
      *     The job listing to be deleted.
