@@ -52,7 +52,7 @@
                             focus:outline-none
                             cursor-pointer"
             >
-                Create Account
+                Create Workopia Account
             </button>
             <p class="mt-4
                       text-gray-500
@@ -61,9 +61,10 @@
                 Already have an account?
                 <a href="{{route('login')}}"
                    class="text-blue-900
+                          font-bold
                           hover:underline"
                 >
-                    Login here
+                    Login
                 </a>
             </p>
         </form>
