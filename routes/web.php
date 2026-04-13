@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\HomeController;
@@ -24,3 +25,6 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.s
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 // Authenticate user logins
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+
+// Logout
+Route::post('/logout',[LogoutController::class, 'logout'])->name('logout');
