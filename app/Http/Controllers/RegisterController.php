@@ -49,6 +49,9 @@ class RegisterController extends Controller
         // Create user
         User::create($validatedData);
 
-        return redirect()->route('login')->with('success', 'Registration successful! You can now log in.');
+        return redirect()->route('login')->with(
+            'success',
+            $validatedData['name'] . 'Registration successful! You can now log in.'
+        );
     }
 }
