@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -35,6 +36,27 @@ class LoginController extends Controller
      * */
     public function authenticate(Request $request): RedirectResponse
     {
-        return redirect()->route('jobs.index');
+        $credentials = $request->validate([
+            'email' => 'required|email|max:100',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt to authenticate the user
+        if (Auth::attempt($credentials)) {
+            // Regenerate the session to prevent session fixation attacks
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            return redirect()->intended(route('jobs.index'))->with(
+                'success',
+                'Successfully logged in as ' . $user->name
+            );
+        }
+
+        // If authentication fails, redirect back with an error message
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.'
+        ])->onlyInput('email');
     }
 }
