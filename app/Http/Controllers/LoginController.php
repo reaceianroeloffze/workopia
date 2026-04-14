@@ -36,10 +36,12 @@ class LoginController extends Controller
      * */
     public function authenticate(Request $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => 'required|email|max:100',
-            'password' => 'required|string',
-        ]);
+        $credentials = $request->validate(
+            [
+                'email' => 'required|email|max:100',
+                'password' => 'required|string',
+            ]
+        );
 
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {

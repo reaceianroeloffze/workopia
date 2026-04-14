@@ -18,7 +18,13 @@ class HomeController extends Controller
      * */
     public function index(): View
     {
-        $jobs = Job::latest()->limit(6)->get();
-        return view('pages.index')->with('jobs', $jobs);
+        $jobs = Job::latest()
+            ->limit(6)
+            ->get();
+        return view('pages.index')
+            ->with(
+                'jobs',
+                $jobs
+            );
     }
 }

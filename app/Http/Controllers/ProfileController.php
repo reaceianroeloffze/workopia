@@ -27,13 +27,17 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email',
+            ]
+        );
 
         // Update the user's profile information
-        $user->update($validatedData);
+        $user->update(
+            $validatedData
+        );
 
         return redirect()
             ->route('dashboard')

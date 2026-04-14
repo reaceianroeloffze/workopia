@@ -16,20 +16,22 @@ return Application::configure(basePath: dirname(__DIR__))
             $middleware->validateCsrfTokens(except: ['/submit']);
         }
     )
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions
-            ->render(
-                function (AuthenticationException $e, $request) {
-                    if ($request->is('api/*')) {
-                        return response()
-                            ->json(['message' => 'Unauthenticated.'], 401);
+    ->withExceptions(
+        function (Exceptions $exceptions): void {
+            $exceptions
+                ->render(
+                    function (AuthenticationException $e, $request) {
+                        if ($request->is('api/*')) {
+                            return response()
+                                ->json(['message' => 'Unauthenticated.'], 401);
+                        }
+                        return redirect()
+                            ->guest(route('login'))
+                            ->with(
+                                'error',
+                                'You must be logged in to access this content.'
+                            );
                     }
-                    return redirect()
-                        ->guest(route('login'))
-                        ->with(
-                            'error',
-                            'You must be logged in to access this content.'
-                        );
-                }
-            );
-    })->create();
+                );
+        }
+    )->create();

@@ -7,6 +7,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\HTTP\Controllers\ProfileController;
 
 // Route to home page
 Route::get('/', [HomeController::class, 'index'])
@@ -65,3 +66,9 @@ Route::post('/logout', [LogoutController::class, 'logout'])
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
+
+// Update User Profile
+Route::put('/profile', [ProfileController::class, 'update'])
+    ->middleware('auth')
+    ->name('profile.update');
+

@@ -172,26 +172,28 @@ class JobController extends Controller
         // Validate user authorisation for updating a job listing
         $this->authorize('update', $job);
 
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'salary' => 'required|integer',
-            'tags' => 'nullable|string',
-            'job_type' => 'required|string',
-            'is_remote' => 'required|boolean',
-            'requirements' => 'nullable|string',
-            'benefits' => 'nullable|string',
-            'address' => 'nullable|string',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'zip_code' => 'nullable|string',
-            'contact_email' => 'required|email',
-            'contact_phone' => 'nullable|string',
-            'company_name' => 'required|string',
-            'company_description' => 'nullable|string',
-            'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'company_website' => 'nullable|url',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'salary' => 'required|integer',
+                'tags' => 'nullable|string',
+                'job_type' => 'required|string',
+                'is_remote' => 'required|boolean',
+                'requirements' => 'nullable|string',
+                'benefits' => 'nullable|string',
+                'address' => 'nullable|string',
+                'city' => 'required|string',
+                'state' => 'required|string',
+                'zip_code' => 'nullable|string',
+                'contact_email' => 'required|email',
+                'contact_phone' => 'nullable|string',
+                'company_name' => 'required|string',
+                'company_description' => 'nullable|string',
+                'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'company_website' => 'nullable|url',
+            ]
+        );
 
         // Check for image
         if ($request->hasFile('company_logo')) {

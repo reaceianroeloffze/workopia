@@ -19,7 +19,10 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Get the job listings of the authenticated user
-        $jobs = Job::where('user_id', $user->id)->get();
+        $jobs = Job::where(
+            'user_id',
+            $user->id,
+        )->get();
 
         return view(
             'dashboard.index',
