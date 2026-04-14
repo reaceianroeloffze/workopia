@@ -16,7 +16,7 @@
         >
             Create Account
         </h1>
-        <form action="{{ route('register.store') }}"
+        <form action="{{route('register.store')}}"
               method="POST"
               class="space-y-4"
         >
