@@ -18,7 +18,8 @@
             @csrf
             <h2 class="text-2xl
                        font-bold
-                       mb-6 text-center
+                       mb-6
+                       text-center
                        text-gray-500"
             >
                 Job Info
@@ -34,7 +35,6 @@
                                 name="description"
                                 label="Job Description"
                                 placeholder="We are seeking a skilled and motivated Software Developer to join our growing development team..."
-
             />
 
             <x-inputs.text id="salary"

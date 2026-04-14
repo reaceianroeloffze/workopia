@@ -2,7 +2,7 @@
     @csrf
     <button type="submit"
             class="text-white
-            cursor-pointer"
+                   cursor-pointer"
     >
         <i class="fa fa-sign-out"></i> Logout
     </button>

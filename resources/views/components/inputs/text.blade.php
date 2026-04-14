@@ -27,7 +27,7 @@
                   rounded
                   focus:outline-none
                   @error($name)
-                    border-red-500
+                  border-red-500
                   @enderror"
            placeholder="{{$placeholder}}"
            value="{{old($name, $value)}}"

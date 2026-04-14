@@ -8,7 +8,11 @@
                 w-full
                 md:max-w-3xl"
     >
-        <h2 class="text-4xl text-center font-bold mb-4">
+        <h2 class="text-4xl
+                   text-center
+                   font-bold
+                   mb-4"
+        >
             Edit Job Listing
         </h2>
         <form method="POST"
@@ -19,7 +23,8 @@
             @method('PUT')
             <h2 class="text-2xl
                        font-bold
-                       mb-6 text-center
+                       mb-6
+                       text-center
                        text-gray-500"
             >
                 Job Info
