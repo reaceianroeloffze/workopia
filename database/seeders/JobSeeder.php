@@ -23,7 +23,9 @@ class JobSeeder extends Seeder
         $testUserId = User::where('email', 'test@yahoo.com')->value('id');
 
         // Get all other user IDs from the User Model
-        $userIds = User::where('email', '!=', 'test@yahoo.com')->pluck('id')->toArray();
+        $userIds = User::where('email', '!=', 'test@yahoo.com')
+            ->pluck('id')
+            ->toArray();
 
         foreach ($jobListings as $index => &$listing) {
             if ($index < 2) {
@@ -40,7 +42,8 @@ class JobSeeder extends Seeder
         }
 
         // Insert the job listings into the database
-        DB::table('job_listings')->insert($jobListings);
+        DB::table('job_listings')
+            ->insert($jobListings);
         echo 'Job listings seeded successfully.';
     }
 }

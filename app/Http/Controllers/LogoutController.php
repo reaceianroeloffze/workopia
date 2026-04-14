@@ -28,9 +28,18 @@ class LogoutController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $request
+            ->session()
+            ->invalidate();
+        $request
+            ->session()
+            ->regenerateToken();
 
-        return redirect()->route('homepage')->with('success', 'You are now logged out.');
+        return redirect()
+            ->route('homepage')
+            ->with(
+                'success',
+                'You are now logged out.'
+            );
     }
 }

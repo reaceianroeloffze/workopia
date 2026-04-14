@@ -28,7 +28,8 @@ class JobController extends Controller
 
         return view(
             'jobs.index'
-        )->with('jobs', $jobs);
+        )
+            ->with('jobs', $jobs);
     }
 
     /**
@@ -87,7 +88,12 @@ class JobController extends Controller
         // Check for image
         if ($request->hasFile('company_logo')) {
             // Store the image file and get the path
-            $imagePath = $request->file('company_logo')->store('logos', 'public');
+            $imagePath = $request
+                ->file('company_logo')
+                ->store(
+                    'logos',
+                    'public'
+                );
 
             // Add the image path to the validated data
             $validatedData['company_logo'] = $imagePath;
@@ -96,7 +102,12 @@ class JobController extends Controller
         // Submit to database
         Job::create($validatedData);
 
-        return redirect()->route('jobs.index')->with('success', 'Job listing created successfully.');
+        return redirect()
+            ->route('jobs.index')
+            ->with(
+                'success',
+                'Job listing created successfully.'
+            );
     }
 
     /**
@@ -114,7 +125,8 @@ class JobController extends Controller
      * */
     public function show(Job $job): View
     {
-        return view('jobs.show')->with('job', $job);
+        return view('jobs.show')
+            ->with('job', $job);
     }
 
     /**
@@ -135,7 +147,8 @@ class JobController extends Controller
         // Validate user authorisation for viewing the edit form for a job listing
         $this->authorize('update', $job);
 
-        return view('jobs.edit')->with('job', $job);
+        return view('jobs.edit')
+            ->with('job', $job);
     }
 
     /**
@@ -183,10 +196,16 @@ class JobController extends Controller
         // Check for image
         if ($request->hasFile('company_logo')) {
             // Delete the old image if it exists
-            Storage::disk('public')->delete($job->company_logo);
+            Storage::disk('public')
+                ->delete($job->company_logo);
 
             // Store the image file and get the path
-            $imagePath = $request->file('company_logo')->store('logos', 'public');
+            $imagePath = $request
+                ->file('company_logo')
+                ->store(
+                    'logos',
+                    'public',
+                );
 
             // Add the image path to the validated data
             $validatedData['company_logo'] = $imagePath;
@@ -195,7 +214,12 @@ class JobController extends Controller
         // Submit to database
         $job->update($validatedData);
 
-        return redirect()->route('jobs.index')->with('success', 'Job listing updated successfully.');
+        return redirect()
+            ->route('jobs.index')
+            ->with(
+                'success',
+                'Job listing updated successfully.',
+            );
     }
 
     /**
@@ -218,16 +242,30 @@ class JobController extends Controller
 
         // If there's a logo, delete it
         if ($job->company_logo) {
-            Storage::disk('public')->delete($job->company_logo);
+            Storage::disk('public')
+                ->delete($job->company_logo);
         }
 
         $job->delete();
 
         // Check if the delete request came from the user's dashboard
-        if (request()->query('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Job listing deleted successfully.');
+        if (
+            request()
+                ->query('from') === 'dashboard'
+        ) {
+            return redirect()
+                ->route('dashboard')
+                ->with(
+                    'success',
+                    'Job listing deleted successfully.'
+                );
         }
 
-        return redirect()->route('jobs.index')->with('success', 'Job listing deleted successfully.');
+        return redirect()
+            ->route('jobs.index')
+            ->with(
+                'success',
+                'Job listing deleted successfully.'
+            );
     }
 }

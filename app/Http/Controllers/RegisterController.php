@@ -37,11 +37,13 @@ class RegisterController extends Controller
      * */
     public function store(Request $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'name' => 'required|string|max:100',
+                'email' => 'required|string|email|max:100|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+            ]
+        );
 
         // Hash password
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -49,9 +51,11 @@ class RegisterController extends Controller
         // Create user
         User::create($validatedData);
 
-        return redirect()->route('login')->with(
-            'success',
-            $validatedData['name'] . 'Registration successful! You can now log in.'
-        );
+        return redirect()
+            ->route('login')
+            ->with(
+                'success',
+                $validatedData['name'] . 'Registration successful! You can now log in.'
+            );
     }
 }

@@ -48,15 +48,23 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-            return redirect()->intended(route('jobs.index'))->with(
-                'success',
-                'Successfully logged in as ' . $user->name
-            );
+            return redirect()
+                ->intended(
+                    route('jobs.index')
+                )
+                ->with(
+                    'success',
+                    'Successfully logged in as ' . $user->name
+                );
         }
 
         // If authentication fails, redirect back with an error message
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.'
-        ])->onlyInput('email');
+        return back()
+            ->withErrors(
+                [
+                    'email' => 'The provided credentials do not match our records.'
+                ]
+            )
+            ->onlyInput('email');
     }
 }
