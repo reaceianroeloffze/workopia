@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Job;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Job>
