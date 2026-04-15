@@ -12,7 +12,7 @@
                       text-gray-700"
                for="{{$id}}"
         >
-            Company Logo
+            {{$label}}
         </label>
     @endif
     <input id="{{$id}}"
