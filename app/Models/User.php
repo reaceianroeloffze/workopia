@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,5 +62,21 @@ class User extends Authenticatable
     public function jobListings(): HasMany
     {
         return $this->hasMany(Job::class);
+    }
+
+    /**
+     * Find a user's bookmarked jobs.
+     *
+     *  A user relation to many bookmarked jobs.
+     *
+     * @return BelongsToMany <p>
+     *    The user's bookmarked jobs.
+     * </p>
+     * */
+    public function bookmarkedJobs(): BelongsToMany
+    {
+        return $this
+            ->BelongsToMany(Job::class, 'job_user_bookmarks')
+            ->withTimestamps();
     }
 }
