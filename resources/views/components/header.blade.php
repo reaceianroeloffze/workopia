@@ -27,14 +27,26 @@
                 >
                     Saved Jobs
                 </x-nav-link>
-                <x-nav-link url="/dashboard"
-                            title="Go to your Workopia dashboard"
-                            :active="request()->is('/dashboard')"
-                            icon="gauge"
-                >
-                    Dashboard
-                </x-nav-link>
                 <x-logout-form/>
+                <div class="flex items-center space-x-3">
+                    <a href="{{route('dashboard')}}">
+                        @if (Auth::user()->avatar)
+                            <img src="{{asset('storage/' . Auth::user()->avatar)}}"
+                                 alt="{{Auth::user()->name}}"
+                                 class="w-10
+                                    h-10
+                                    rounded-full"
+                            >
+                        @else
+                            <img src="{{asset('storage/avatars/default-avatar.png')}}"
+                                 alt="{{Auth::user()->name}}"
+                                 class="w-10
+                                    h-10
+                                    rounded-full"
+                            >
+                        @endif
+                    </a>
+                </div>
                 <x-button-link url="/jobs/create"
                                title="Create a new job listing"
                                icon="edit"
@@ -93,15 +105,27 @@
             >
                 Saved Jobs
             </x-nav-link>
-            <x-nav-link url="/dashboard"
-                        :active="request()->is('dashboard')"
-                        :mobile="true"
-                        icon="gauge"
-                        title="Go to your Workopia dashboard"
-            >
-                Dashboard
-            </x-nav-link>
             <x-logout-form/>
+            <div class="flex items-center space-x-3">
+                <a href="{{route('dashboard')}}">
+                    @if (Auth::user()->avatar)
+                        <img src="{{asset('storage/.' . Auth::user()->avatar)}}"
+                             alt="{{Auth::user()->name}}"
+                             class="w-10
+                                    h-10
+                                    rounded-full
+                                    py-2"
+                        >
+                    @else
+                        <img src="{{asset('storage/avatars/default-avatar.png')}}"
+                             alt="{{Auth::user()->name}}"
+                             class="w-10
+                                    h-10
+                                    rounded-full"
+                        >
+                    @endif
+                </a>
+            </div>
             <div class="pt-2"></div>
             <x-button-link url="/jobs/create"
                            title="Create a new job listing"
