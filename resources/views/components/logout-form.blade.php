@@ -2,7 +2,8 @@
     @csrf
     <button type="submit"
             class="text-white
-                   cursor-pointer"
+                   cursor-pointer
+                   py-2"
     >
         <i class="fa fa-sign-out"></i> Logout
     </button>
