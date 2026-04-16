@@ -226,12 +226,42 @@
                     <i class="fa fa-info-circle mr-3"></i> You must be logged in to bookmark a job.
                 </p>
             @else
-                <form action="{{route('bookmarks.store', $job->id)}}"
+                <form action="{{auth()
+                                    ->user()
+                                    ->bookmarkedJobs()
+                                    ->where('job_id', $job->id)
+                                    ->exists() ? route('bookmarks.destroy', $job->id) :
+                                        route('bookmarks.store', $job->id)}}"
                       method="POST"
                       class="mt-10"
                 >
                     @csrf
-                    <button class="bg-blue-500
+                    @if (
+                          auth()
+                            ->user()
+                            ->bookmarkedJobs()
+                            ->where('job_id', $job->id)
+                            ->exists()
+                         )
+                        @method('DELETE')
+                        <button class="bg-red-500
+                                   hover:bg-red-700
+                                   text-white
+                                   font-bold
+                                   w-full
+                                   py-2
+                                   px-4
+                                   rounded-full
+                                   flex
+                                   items-center
+                                   justify-center
+                                   ease-in-out
+                                   duration-200"
+                        >
+                            <i class="fa fa-trash mr-3"></i> Remove Bookmark
+                        </button>
+                    @else
+                        <button class="bg-blue-500
                                    hover:bg-blue-700
                                    text-white
                                    font-bold
@@ -244,9 +274,10 @@
                                    justify-center
                                    ease-in-out
                                    duration-200"
-                    >
-                        <i class="fa fa-bookmark mr-3"></i> Bookmark This Listing
-                    </button>
+                        >
+                            <i class="fa fa-bookmark mr-3"></i> Bookmark This Listing
+                        </button>
+                    @endif
                 </form>
             @endguest
         </aside>
