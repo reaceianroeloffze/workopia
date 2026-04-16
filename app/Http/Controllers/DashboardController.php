@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $jobs = Job::where(
             'user_id',
             $user->id,
-        )->get();
+        )->with('applicants')->get();
 
         return view(
             'dashboard.index',

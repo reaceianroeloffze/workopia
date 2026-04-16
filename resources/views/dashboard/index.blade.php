@@ -144,6 +144,48 @@
                         </form>
                     </div>
                 </div>
+                {{-- Applicants --}}
+                <section class="mt-4">
+                    <h4 class="text-lg
+                               font-semibold
+                               mb-1"
+                    >
+                        Applicants:
+                    </h4>
+                    @forelse($job->applicants AS $applicant)
+                        <div class="bg-gray-100
+                                    rounded-lg
+                                    mb-2
+                                    p-2"
+                        >
+                            <p class="text-gray-800">
+                                <strong>Name: </strong> {{$applicant->full_name}}
+                            </p>
+                            <p class="text-gray-800">
+                                <strong>Phone: </strong> {{$applicant->contact_phone}}
+                            </p>
+                            <p class="text-gray-800">
+                                <strong>Email: </strong> {{$applicant->contact_email}}
+                            </p>
+                            <p class="text-gray-800">
+                                <strong>Message: </strong> {{$applicant->message}}
+                            </p>
+                            <p class="text-gray-800 my-4">
+                                <a href="{{asset('storage/' . $applicant->resume_path)}}"
+                                   class="text-blue-700
+                                          hover:underline"
+                                   download
+                                >
+                                    <i class="fa fa-download"></i> Download Resumé
+                                </a>
+                            </p>
+                        </div>
+                    @empty
+                        <p class="text-gray-700">
+                            No current applicants
+                        </p>
+                    @endforelse
+                </section>
             @empty
                 <p class="text-gray-700">
                     You currently have no job listings
