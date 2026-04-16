@@ -88,6 +88,10 @@ Route::middleware('auth')
         }
     );
 
+// Apply for a job
 Route::post('/jobs/{job}/apply', [ApplicantController::class, 'store'])
     ->middleware('auth')
     ->name('applicant.store');
+
+// Delete an applicant
+Route::delete('applicants/{applicant}', [ApplicantController::class, 'destroy'])->name('applicant.destroy');
