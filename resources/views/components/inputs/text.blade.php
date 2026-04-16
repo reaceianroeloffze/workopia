@@ -6,6 +6,7 @@
         'type' => 'text',
         'value' => '',
         'placeholder' => '',
+        'required' => false,
     ]
 )
 <div class="mb-4">
@@ -15,6 +16,9 @@
                for="{{$id}}"
         >
             {{$label}}
+            @if ($required)
+                <span class="text-red-500">*</span>
+            @endif
         </label>
     @endif
     <input id="{{$id}}"
@@ -27,9 +31,11 @@
                   rounded
                   focus:outline-none
                   @error($name)
-                  border-red-500
+                      border-red-500
                   @enderror"
-           placeholder="{{$placeholder}}"
+           @if ($placeholder)
+               placeholder="{{$placeholder}} {{$required ? '*' : ''}}"
+           @endif
            value="{{old($name, $value)}}"
     >
     @error($name)

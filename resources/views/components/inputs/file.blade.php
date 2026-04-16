@@ -3,6 +3,7 @@
         'id',
         'name',
         'label' => null,
+        'required' => false,
     ]
 )
 
@@ -13,6 +14,9 @@
                for="{{$id}}"
         >
             {{$label}}
+            @if ($required)
+                <span class="text-red-500">*</span>
+            @endif
         </label>
     @endif
     <input id="{{$id}}"
