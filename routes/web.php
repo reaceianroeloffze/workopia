@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -72,3 +73,13 @@ Route::put('/profile', [ProfileController::class, 'update'])
     ->middleware('auth')
     ->name('profile.update');
 
+// Bookmarked/Saved Jobs
+Route::middleware('auth')
+    ->group(
+        function () {
+            Route::get('/bookmarks', [BookmarkController::class, 'index'])
+                ->name('bookmarks.index');
+            Route::post('/bookmarks/{job}', [BookmarkController::class, 'store'])
+                ->name('bookmarks.store');
+        }
+    );
