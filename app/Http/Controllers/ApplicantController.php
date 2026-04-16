@@ -19,7 +19,7 @@ class ApplicantController extends Controller
      * @route POST /jobs/{job}/apply
      *
      * @return RedirectResponse <p>
-     *     Redirects the user to the job details page with an appropriate message.
+     *     Redirects the user to the Dashboard page with an appropriate message.
      * </p>
      */
     public function store(Request $request, Job $job): RedirectResponse
@@ -53,6 +53,28 @@ class ApplicantController extends Controller
             'success',
             'Your application for ' . $job->title . ' has been submitted successfully.'
         );
+    }
 
+    /**
+     * Delete/destroy an applicant
+     *
+     * @route DELETE /applicants/{applicant}
+     *
+     * @param int $id <p>
+     *     The id of the applicant to be deleted.
+     * </p>
+     *
+     * @return RedirectResponse <p>
+     *     Redirects the user to the dashboard page with an appropriate message.
+     * */
+    public function destroy(int $id): RedirectResponse
+    {
+        $applicant = Applicant::findOrFail($id);
+        $applicant->delete();
+
+        return redirect()->route('dashboard')->with(
+            'success',
+            'Applicant ' . $applicant->full_name . ' deleted successfully.'
+        );
     }
 }
