@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var list<string>
      */
@@ -69,6 +69,8 @@ class User extends Authenticatable
      *
      *  A user relation to many bookmarked jobs.
      *
+     * Many users can bookmark many jobs.
+     *
      * @return BelongsToMany <p>
      *    The user's bookmarked jobs.
      * </p>
@@ -78,5 +80,19 @@ class User extends Authenticatable
         return $this
             ->BelongsToMany(Job::class, 'job_user_bookmarks')
             ->withTimestamps();
+    }
+
+    /**
+     * Relation to applicants
+     *
+     * 1 user can be an applicant for many jobs.
+     *
+     * @return HasMany <p>
+     *     The user's job applicantions.
+     * </p>
+     * */
+    public function applicants(): HasMany
+    {
+        return $this->hasMany(Applicant::class, 'user_id');
     }
 }

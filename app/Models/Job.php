@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\{Factories\HasFactory,
+    Model,
+    Relations\BelongsTo,
+    Relations\BelongsToMany,
+    Relations\HasMany};
 
 class Job extends Model
 {
@@ -53,6 +54,8 @@ class Job extends Model
      *
      * A job listing in relation to many bookmarks.
      *
+     * Many users can bookmark many jobs.
+     *
      * @return BelongsToMany <p>
      *     The user's bookmarked jobs.
      * </p>
@@ -62,5 +65,19 @@ class Job extends Model
         return $this
             ->belongsToMany(User::class, 'job_user_bookmarks')
             ->withTimestamps();
+    }
+
+    /**
+     * Relation to applicants
+     *
+     * 1 job can have many applicants.
+     *
+     * @return HasMany <p>
+     *     The job's applicants
+     * </p>
+     * */
+    public function applicants(): HasMany
+    {
+        return $this->hasMany(Applicant::class);
     }
 }
