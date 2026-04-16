@@ -11,3 +11,7 @@
 .hero {
     background-image: url("../images/job-search-by-firmbee-on-unsplash.jpg");
 }
+
+[x-cloak] {
+    display: none !important;
+}
