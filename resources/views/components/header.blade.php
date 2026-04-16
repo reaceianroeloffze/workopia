@@ -21,9 +21,9 @@
                 All jobs
             </x-nav-link>
             @auth
-                <x-nav-link url="/jobs/saved"
+                <x-nav-link url="/bookmarks"
                             title="Your saved/bookmarked jobs"
-                            :active="request()->is('jobs/saved')"
+                            :active="request()->is('bookmarks')"
                 >
                     Saved Jobs
                 </x-nav-link>
@@ -98,8 +98,8 @@
             All Jobs
         </x-nav-link>
         @auth
-            <x-nav-link url="/jobs/saved"
-                        :active="request()->is('jobs/saved')"
+            <x-nav-link url="/bookmarks"
+                        :active="request()->is('bookmarks')"
                         :mobile="true"
                         title="Your saved/bookmarked jobs"
             >
