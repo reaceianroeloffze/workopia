@@ -135,28 +135,136 @@
                         </p>
                     </div>
                 @endif
-                <p class="my-5">
-                    Put "Job Application" as the subject of your email
-                    and attach your resume.
-                </p>
-                <a href="mailto:manager@company.com"
-                   class="block
-                          w-full
-                          text-center
-                          px-5
-                          py-2.5
-                          shadow-sm
-                          rounded
-                          border
-                          text-base
-                          font-medium
-                          cursor-pointer
-                          text-indigo-700
-                          bg-indigo-100
-                          hover:bg-indigo-200"
-                >
-                    Apply Now
-                </a>
+                @auth
+                    <p class="my-5">
+                        Put "Job Application" as the subject of your email
+                        and attach your resume.
+                    </p>
+                    {{-- Job Application Modal --}}
+                    <div x-data="{isOpen: {{$errors->any() ? 'true' : 'false'}}}">
+                        <button class="block
+                                   w-full
+                                   text-center
+                                   px-5
+                                   py-2.5
+                                   shadow-sm
+                                   rounded
+                                   border
+                                   text-base
+                                   font-medium
+                                   cursor-pointer
+                                    bg-indigo-100
+                                   hover:bg-indigo-200"
+                                @click="isOpen = true"
+                        >
+                            Apply Now
+                        </button>
+                        <div x-cloak
+                             x-show="isOpen"
+                             class="fixed
+                                    inset-0
+                                    flex
+                                    items-center
+                                    justify-center
+                                    bg-gray-900/50"
+                        >
+                            <section class="bg-white
+                                            p-6
+                                            rounded-lg
+                                            shadow-md
+                                            w-[40%]
+                                            max-h-[99vh]
+                                            overflow-y-auto"
+                                     @click.away="isOpen = false"
+                            >
+                                <h2 class="text-2xl
+                                       font-semibold
+                                       mb-4
+                                       text-center"
+                                >
+                                    Apply For {{$job->title}}
+                                </h2>
+                                <form action="{{route('applicant.store', $job->id)}}"
+                                      method="POST"
+                                      enctype="multipart/form-data"
+                                      class="space-y-4"
+                                >
+                                    @csrf
+                                    <x-inputs.text id="full_name"
+                                                   name="full_name"
+                                                   label="Full Name"
+                                                   :required="true"
+                                    />
+                                    <x-inputs.text id="contact_phone"
+                                                   name="contact_phone"
+                                                   label="Contact Phone"
+                                    />
+                                    <x-inputs.text id="contact_email"
+                                                   type="email"
+                                                   name="contact_email"
+                                                   label="Contact Email"
+                                                   :required="true"
+                                    />
+                                    <x-inputs.text-area id="message"
+                                                        name="message"
+                                                        label="Message"
+                                    />
+                                    <x-inputs.text id="location"
+                                                   name="location"
+                                                   label="Location"
+                                    />
+                                    <x-inputs.file id="resume"
+                                                   name="resume"
+                                                   label="Upload Your Resume (pdf)"
+                                                   :required="true"
+                                                   accept="application/pdf"
+                                    />
+                                    <div class="flex gap-2">
+                                        <button type="submit"
+                                                class="bg-blue-500
+                                                       hover:bg-blue-700
+                                                       text-white
+                                                       font-bold
+                                                       py-2
+                                                       px-4
+                                                       rounded-md
+                                                       flex-1
+                                                       ease-in-out
+                                                       duration-200"
+                                        >
+                                            Apply
+                                        </button>
+                                        <button type="button"
+                                                class="bg-gray-300
+                                                       hover:bg-gray-500
+                                                       text-black
+                                                       font-bold
+                                                       py-2
+                                                       px-4
+                                                       rounded-md
+                                                       flex-1
+                                                       ease-in-out
+                                                       duration-200"
+                                                @click="isOpen = false"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                @else
+                    <p class="my-5
+                              text-lg
+                              bg-gray-300
+                              p-4
+                              rounded-lg
+                              text-center"
+                    >
+                        <i class="fa fa-info-circle"></i> Log in to apply for this and/or other jobs.
+                    </p>
+                @endauth
             </div>
 
             <div class="bg-white
