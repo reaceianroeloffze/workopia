@@ -12,7 +12,7 @@ class ProfileController extends Controller
     /**
      * Update user profile information.
      *
-     * @route PUT /profile
+     * @route PUT /profile.update
      *
      * @param Request $request <p>
      *     The request object containing the user profile information.
@@ -65,6 +65,27 @@ class ProfileController extends Controller
             ->with(
                 'success',
                 'Your profile information has been updated.'
+            );
+    }
+
+    /**
+     * Delete a user's account.
+     *
+     * @route DELETE /profile.destroy
+     *
+     * @return RedirectResponse <p>
+     *     Redirects the user to the homepage upon successful account deletion.
+     * </p>
+     * */
+    public function destroy(): RedirectResponse
+    {
+        $user = Auth::user();
+        $user->delete();
+
+        return redirect()->route('homepage')
+            ->with(
+                'success',
+                'Your account has been deleted.'
             );
     }
 }
