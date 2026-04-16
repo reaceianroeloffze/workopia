@@ -48,7 +48,7 @@ class BookmarkController extends Controller
      * </p>
      *
      * @return RedirectResponse <p>
-     *     Redirects the user to the saved jobs page upon successful bookmarking.
+     *     Redirects the user to the saved jobs page displaying the appropriate message.
      * </p>
      * */
     public function store(Job $job): RedirectResponse
@@ -74,6 +74,44 @@ class BookmarkController extends Controller
         return back()->with(
             'success',
             'Job bookmarked successfully.'
+        );
+    }
+
+    /**
+     * Remove a bookmarked job
+     *
+     * @route DELETE /bookmarks/{job}
+     *
+     * @param Job $job <p>
+     *     The job listing to be unbookmarked.
+     * </p>
+     *
+     * @return RedirectResponse <p>
+     *     Redirects the user to the saved jobs page upon successful unbookmarking.
+     * */
+    public function destroy(Job $job): redirectResponse
+    {
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Check if the job is not bookmarked
+        if (
+            !$user
+                ->bookmarkedJobs()
+                ->where('job_id', $job->id)
+                ->exists()
+        ) {
+            return back()->with(
+                'error',
+                'This job has not been bookmarked.'
+            );
+        }
+
+        // Remove bookmark
+        $user->bookmarkedJobs()->detach($job->id);
+        return back()->with(
+            'success',
+            'Bookmark removed successfully.'
         );
     }
 }
