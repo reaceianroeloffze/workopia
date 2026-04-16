@@ -81,5 +81,7 @@ Route::middleware('auth')
                 ->name('bookmarks.index');
             Route::post('/bookmarks/{job}', [BookmarkController::class, 'store'])
                 ->name('bookmarks.store');
+            Route::delete('/bookmarks/{job}', [BookmarkController::class, 'destroy'])
+                ->name('bookmarks.destroy');
         }
     );
