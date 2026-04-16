@@ -75,6 +75,11 @@ Route::put('/profile', [ProfileController::class, 'update'])
     ->middleware('auth')
     ->name('profile.update');
 
+// Delete User Profile
+Route::delete('/profile', [ProfileController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('profile.destroy');
+
 // Bookmarked/Saved Jobs
 Route::middleware('auth')
     ->group(
