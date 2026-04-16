@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\{BookmarkController,
+    DashboardController,
+    LogoutController,
+    JobController,
+    HomeController,
+    LoginController,
+    RegisterController,
+    ProfileController,
+    ApplicantController,
+};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\HTTP\Controllers\ProfileController;
 
 // Route to home page
 Route::get('/', [HomeController::class, 'index'])
@@ -85,3 +87,7 @@ Route::middleware('auth')
                 ->name('bookmarks.destroy');
         }
     );
+
+Route::post('/jobs/{job}/apply', [ApplicantController::class, 'store'])
+    ->middleware('auth')
+    ->name('applicant.store');
