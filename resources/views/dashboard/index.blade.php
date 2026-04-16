@@ -25,14 +25,12 @@
                                 rounded-full">
                 </div>
             @endif
-
             <form action="{{route('profile.update')}}"
                   method="POST"
                   enctype="multipart/form-data"
             >
                 @csrf
                 @method('PUT')
-
                 <x-inputs.text id="name"
                                label="Name"
                                name="name"
@@ -58,9 +56,31 @@
                                border
                                rounded
                                cursor-pointer
-                               focus:outline-none"
+                               focus:outline-none
+                               ease-in-out
+                               duration-100"
                 >
                     Save
+                </button>
+            </form>
+            <form action="{{route('profile.destroy')}}"
+                  method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete your account?');"
+                  class="w-full mt-4 flex justify-center"
+            >
+                @csrf
+                @method('DELETE')
+                <button class="bg-red-500
+                               w-full
+                               text-white
+                               px-4
+                               py-2
+                               rounded
+                               hover:bg-red-700
+                               cursor-pointer
+                               ease-in-out
+                               duration-100">
+                    <i class="fa fa-trash"></i> Delete Account
                 </button>
             </form>
         </section>
