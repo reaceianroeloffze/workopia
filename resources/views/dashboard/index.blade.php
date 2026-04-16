@@ -170,18 +170,35 @@
                             <p class="text-gray-800">
                                 <strong>Message: </strong> {{$applicant->message}}
                             </p>
-                            <p class="text-gray-800 my-4">
+                            <p class="text-gray-800 mt-3 mb-1">
                                 <a href="{{asset('storage/' . $applicant->resume_path)}}"
                                    class="text-blue-700
-                                          hover:underline"
+                                          hover:underline
+                                          text-sm"
                                    download
                                 >
                                     <i class="fa fa-download"></i> Download Resumé
                                 </a>
                             </p>
+                            {{-- Delete Applicants --}}
+                            <form action="{{route('applicant.destroy', $applicant->id)}}"
+                                  method="POST"
+                                  onsubmit="return confirm('Are you sure you want to delete applicant {{$applicant->full_name}}?');"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="text-red-600
+                                               text-sm
+                                               hover:text-red-700
+                                               cursor-pointer"
+                                >
+                                    <i class="fa fa-trash"></i> Delete Applicant
+                                </button>
+                            </form>
                         </div>
                     @empty
-                        <p class="text-gray-700">
+                        <p class="text-gray-800 bg-gray-100 p-2 rounded-lg">
                             No current applicants
                         </p>
                     @endforelse
