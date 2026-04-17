@@ -15,3 +15,14 @@
 [x-cloak] {
     display: none !important;
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+}
+
+#job-application-modal {
+    position: relative;
+    z-index: 2;
+}
