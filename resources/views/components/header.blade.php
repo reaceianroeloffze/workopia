@@ -3,11 +3,27 @@
                p-4"
         x-data="{open: false}"
 >
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-semibold">
-            <a href="{{url('/')}}" title="Workopia Homepage">Workopia</a>
+    <div class="container
+                mx-auto
+                flex
+                justify-between
+                items-center"
+    >
+        <h1 class="text-3xl
+                   font-semibold"
+        >
+            <a href="{{url('/')}}"
+               title="Workopia Homepage"
+               class="letter-spacing-20"
+            >
+                Workopia
+            </a>
         </h1>
-        <nav class="hidden md:flex items-center space-x-4">
+        <nav class="hidden
+                    md:flex
+                    items-center
+                    space-x-4"
+        >
             <x-nav-link url="/"
                         title="Workopia Homepage"
                         :active="request()->is('/')"
@@ -28,7 +44,10 @@
                     Saved Jobs
                 </x-nav-link>
                 <x-logout-form/>
-                <div class="flex items-center space-x-3">
+                <div class="flex
+                            items-center
+                            space-x-3"
+                >
                     <a href="{{route('dashboard')}}">
                         @if (Auth::user()->avatar)
                             <img src="{{asset('storage/' . Auth::user()->avatar)}}"
