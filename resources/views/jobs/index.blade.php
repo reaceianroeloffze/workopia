@@ -12,6 +12,27 @@
     >
         <x-search/>
     </div>
+
+    {{-- Back Button --}}
+    @if (
+         request()->has('keywords') ||
+         request()->has('location')
+        )
+        <a href="{{route('jobs.index')}}"
+           class="bg-gray-700
+                  hover:bg-gray-600
+                  text-white
+                  px-4
+                  py-2
+                  rounded
+                  mb-4
+                  block
+                  mx-auto
+                  w-fit"
+        >
+            <i class="fa fa-arrow-left mr-1"></i> Back
+        </a>
+    @endif
     {{-- Pagination Links --}}
     {{$jobs->links()}}
     <div class="grid
