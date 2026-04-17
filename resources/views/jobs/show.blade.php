@@ -141,7 +141,9 @@
                         and attach your resume.
                     </p>
                     {{-- Job Application Modal --}}
-                    <div x-data="{isOpen: {{$errors->any() ? 'true' : 'false'}}}">
+                    <div x-data="{isOpen: {{$errors->any() ? 'true' : 'false'}}}"
+                         id="job-application-modal"
+                    >
                         <button class="block
                                    w-full
                                    text-center
@@ -153,7 +155,7 @@
                                    text-base
                                    font-medium
                                    cursor-pointer
-                                    bg-indigo-100
+                                   bg-indigo-100
                                    hover:bg-indigo-200"
                                 @click="isOpen = true"
                         >
@@ -273,6 +275,7 @@
                         shadow-md
                         mt-6"
             >
+                {{-- Job Map Location --}}
                 <div id="map"></div>
             </div>
         </section>
@@ -390,4 +393,52 @@
             @endguest
         </aside>
     </div>
+    {{-- Mapbox Map --}}
+    @push('head')
+        <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
+              rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
+    @endpush
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Your Mapbox access token
+            mapboxgl.accessToken = "{{config('services.mapbox.api_key')}}";
+
+            // Initialise the map
+            const map = new mapboxgl.Map({
+                container: 'map', // ID of the container element
+                style: 'mapbox://styles/mapbox/standard', // Upgraded to the new Standard style
+                center: [-74.5, 40], // Default center
+                zoom: 9, // Default zoom level
+            });
+
+            // Get address from Laravel view
+            const city = '{{$job->city}}';
+            const state = '{{$job->state}}';
+            const address = city + ', ' + state;
+
+            // Geocode the address
+            fetch(
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+                    address
+                )}.json?access_token=${mapboxgl.accessToken}`
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.features.length > 0) {
+                        const [longitude, latitude] = data.features[0].center;
+
+                        // Center the map and add a marker
+                        map.setCenter([longitude, latitude]);
+                        map.setZoom(14);
+
+                        new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+                    } else {
+                        console.error('No results found for the address.');
+                    }
+                })
+                .catch((error) => console.error('Error geocoding address:', error));
+        });
+    </script>
 </x-layout>
