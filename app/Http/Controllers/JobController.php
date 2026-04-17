@@ -270,4 +270,79 @@ class JobController extends Controller
                 'Job listing deleted successfully.'
             );
     }
+
+    /**
+     * Search for jobs by title, description, or tags.
+     *
+     * @route GET /jobs/search
+     *
+     * @param Request $request <p>
+     *     The request object containing the search query.
+     * </p>
+     *
+     * @return View <p>
+     *     The view for displaying the search results.
+     * </p>
+     * */
+    public function search(Request $request): View
+    {
+        $keywords = $request->input('keywords');
+        $location = $request->input('location');
+
+        $query = Job::query();
+
+        // Apply search filters based on keywords and location
+        if ($keywords) {
+            $query->where(
+                function ($q) use ($keywords) {
+                    $q->where(
+                        'title',
+                        'ILIKE',
+                        '%' . $keywords . '%'
+                    )
+                        ->orWhere(
+                            'description',
+                            'ILIKE',
+                            '%' . $keywords . '%'
+                        )
+                        ->orWhere(
+                            'tags',
+                            'ILIKE',
+                            '%' . $keywords . '%'
+                        );
+                }
+            );
+        }
+
+        if ($location) {
+            $query->where(
+                function ($q) use ($location) {
+                    $q->where(
+                        'city',
+                        'ILIKE',
+                        '%' . $location . '%'
+                    )
+                        ->orWhere(
+                            'state',
+                            'ILIKE',
+                            '%' . $location . '%'
+                        )
+                        ->orWhere(
+                            'zip_code',
+                            'ILIKE',
+                            '%' . $location . '%'
+                        )
+                        ->orWhere(
+                            'address',
+                            'ILIKE',
+                            '%' . $location . '%'
+                        );
+                }
+            );
+        }
+
+        $jobs = $query->paginate(12);
+
+        return view('jobs.index', compact('jobs'));
+    }
 }
