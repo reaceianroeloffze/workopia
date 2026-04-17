@@ -16,6 +16,7 @@
                   py-3
                   focus:outline-none
                   bg-white"
+           value="{{request('keywords')}}"
     >
     <input type="text"
            name="location"
@@ -27,6 +28,7 @@
                   py-3
                   focus:outline-none
                   bg-white"
+           value="{{request('location')}}"
     >
     <button class="w-full
                            md:w-auto
