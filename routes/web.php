@@ -17,7 +17,7 @@ Route::get('/', [HomeController::class, 'index'])
     ->name('homepage');
 
 // Routes to all job-related pages
-// Route::resource('jobs', JobController::class);
+Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 Route::resource('jobs', JobController::class)
     ->middleware('auth')
     ->only(
