@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\{BookmarkController,
     DashboardController,
+    GeocodeController,
     LogoutController,
     JobController,
     HomeController,
     LoginController,
     RegisterController,
     ProfileController,
-    ApplicantController,
-};
+    ApplicantController};
 use Illuminate\Support\Facades\Route;
 
 // Route to home page
@@ -100,3 +100,7 @@ Route::post('/jobs/{job}/apply', [ApplicantController::class, 'store'])
 
 // Delete an applicant
 Route::delete('applicants/{applicant}', [ApplicantController::class, 'destroy'])->name('applicant.destroy');
+
+// Route for geocoding
+Route::get('/geocode', [GeocodeController::class, 'geocode'])
+    ->name('geocode');
