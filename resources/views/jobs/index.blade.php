@@ -1,5 +1,17 @@
 <x-layout>
     <x-slot name="title">Jobs</x-slot>
+    <div class="bg-blue-900
+                md:h-25
+                h-50
+                px-4
+                mb-4
+                flex
+                justify-center
+                items-center
+                rounded"
+    >
+        <x-search/>
+    </div>
     {{-- Pagination Links --}}
     {{$jobs->links()}}
     <div class="grid
